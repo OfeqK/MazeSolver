@@ -5,8 +5,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class extractData {
-    public static int[][] get_pixels() {
-        File file = new File("C:\\Users\\User\\Documents\\אופק תכנות\\Java\\MazeSolver\\src\\21x21 maze.png");
+    public static int[][] get_pixels(String name) {
+        File file = new File("C:\\Users\\User\\Documents\\אופק תכנות\\Java\\MazeSolver\\src\\" + name);
         BufferedImage img;
         try {
             img = ImageIO.read(file);
@@ -29,7 +29,7 @@ public class extractData {
                 int red = color.getRed();
                 int blue = color.getBlue();
                 int green = color.getGreen();
-                if ((red == 255) && (blue == 255) && (green == 255)){
+                if ((red == 255) && (blue == 255) && (green == 255)){ // white pixel = path = 1
                     maze[y][x] = 1;
                 } else {
                     maze[y][x] = 0;
