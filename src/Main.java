@@ -10,7 +10,7 @@ import java.util.Stack;
 
 public class Main {
     public static void main(String[] args) {
-        String name = "21x21 maze.png";
+        String name = "401x401 maze.png";
         int[][] maze = extractData.get_pixels(name); // y, x
 
         // * Finding the start & end of the path:
