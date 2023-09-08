@@ -49,6 +49,11 @@ public class Cell {
 //        System.out.printf("x: %d, y: %d\n", x, y);
         int wn_x = x * tile;
         int wn_y = y * tile;
+        if (this.visited){
+            g.setColor(light_blue);
+            g.fillRect(wn_x, wn_y , tile, tile); // draw the square but make it fill only the white area and not the borders
+        }
+
         g.setColor(black);
         if (this.hasWall("top")){
             g.drawLine(wn_x, wn_y, wn_x + tile, wn_y);
@@ -63,10 +68,6 @@ public class Cell {
             g.drawLine(wn_x + tile, wn_y, wn_x + tile, wn_y + tile);
         }
 
-        if (this.visited){
-            g.setColor(light_blue);
-            g.fillRect(wn_x + 1, wn_y + 1, tile - 1, tile - 1); // draw the square but make it fill only the white area and not the borders
-        }
     }
 
     public Object checkCell(Grid grid, int cur_x, int cur_y){
