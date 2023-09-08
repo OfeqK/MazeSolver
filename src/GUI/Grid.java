@@ -4,6 +4,7 @@ import java.util.Stack;
 
 public class Grid {
     public Cell[][] cells;
+    public Cell currentCell; // making it accessible to other classes
 
     public Grid(int tile, int rows, int cols){
         cells = new Cell[rows][cols]; // cells[y][x] == cells[row][col]
@@ -54,7 +55,7 @@ public class Grid {
     public void generateMaze(GridPanel gridPanel, int delayInMillis){
         Stack<Cell> stack = new Stack<>();
         boolean generatingMaze = true;
-        Cell currentCell = this.getCell(0, 0); // the top left cell
+        currentCell = this.getCell(0, 0); // the top left cell
 
         while (generatingMaze){
             gridPanel.repaint();  // repaint / update the screen according to the change in the grid

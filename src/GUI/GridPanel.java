@@ -20,7 +20,12 @@ public class GridPanel extends JPanel{
         for (int row = 0; row < rows; row++){ // drawing all the cells to the screen
             for (int col = 0; col < cols; col++){
                 Cell cell = grid.getCell(row, col);
-                cell.draw(g);
+//                cell.draw(g);
+                if (cell == grid.currentCell) {
+                    cell.drawCurrent(g);
+                } else {
+                    cell.draw(g);
+                }
             }
         }
 
