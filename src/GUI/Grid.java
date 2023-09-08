@@ -54,22 +54,22 @@ public class Grid {
     public void generateMaze(GridPanel gridPanel, int delayInMillis){
         Stack<Cell> stack = new Stack<>();
         boolean generatingMaze = true;
-        Cell current_cell = this.getCell(0, 0); // the top left cell
+        Cell currentCell = this.getCell(0, 0); // the top left cell
 
         while (generatingMaze){
             gridPanel.repaint();  // repaint / update the screen according to the change in the grid
 
-            current_cell.visited = true;
-            current_cell.drawCurrent(gridPanel.getGraphics());
+            currentCell.visited = true;
+            currentCell.drawCurrent(gridPanel.getGraphics());
 
-            Object nextCell = current_cell.checkNeighbors(this);
+            Object nextCell = currentCell.checkNeighbors(this);
             if (nextCell instanceof Cell){ // the function did not return false which means we have a random neighbor
                 ((Cell) nextCell).visited = true;
-                stack.push(current_cell); // for a dead end edge case
-                this.removeWalls(current_cell, (Cell) nextCell);
-                current_cell = (Cell) nextCell;
+                stack.push(currentCell); // for a dead end edge case
+                this.removeWalls(currentCell, (Cell) nextCell);
+                currentCell = (Cell) nextCell;
             } else if (stack.size() > 0){
-                current_cell = stack.pop();
+                currentCell = stack.pop();
             } else {
                 generatingMaze = false;
             }

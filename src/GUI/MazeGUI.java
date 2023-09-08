@@ -5,7 +5,7 @@ import javax.swing.*;
 public class MazeGUI {
     static int rows = 20;
     static int cols = 20;
-    static int tile = 40; // each pixel is 20px
+    static int tile = 40; // each pixel is represented as 40px
     static int width = cols * tile;
     static int height = rows * tile;
 
