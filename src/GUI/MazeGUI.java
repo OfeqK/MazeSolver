@@ -1,7 +1,6 @@
 package GUI;
 
 import javax.swing.*;
-import java.util.Arrays;
 
 public class MazeGUI {
     static int rows = 20;

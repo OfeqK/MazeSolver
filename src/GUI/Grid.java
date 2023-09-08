@@ -1,6 +1,5 @@
 package GUI;
 
-import java.io.FileWriter;
 import java.util.Stack;
 
 public class Grid {
@@ -24,7 +23,7 @@ public class Grid {
         for (int y = 0; y < cells.length; y++){
             for (int x = 0; x < cells[0].length; x++){
                 Cell cell = this.getCell(y, x);
-                str +=  "(" + cell.x + "," + cell.y + "), ";
+                str += ("(" + cell.x + "," + cell.y + "), ");
             }
             str += "\n";
         }

@@ -10,7 +10,6 @@ public class Cell {
     boolean visited = false;
 
     Color black = new Color(0, 0, 0);
-    Color white = new Color(255, 255, 255);
     Color light_blue = new Color(0, 255, 255);
     Color turquoise = new Color(0, 82, 84);
 
@@ -42,7 +41,7 @@ public class Cell {
     public void drawCurrent(Graphics g){
         int wn_x = x * tile;
         int wn_y = y * tile;
-        g.setColor(black);
+        g.setColor(turquoise);
         g.fillRect(wn_x + 1, wn_y + 1, tile - 1, tile - 1); // draw the square but make it fill only the white area and not the borders
     }
 
