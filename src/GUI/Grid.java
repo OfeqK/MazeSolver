@@ -61,7 +61,6 @@ public class Grid {
             gridPanel.repaint();  // repaint / update the screen according to the change in the grid
 
             currentCell.visited = true;
-            currentCell.drawCurrent(gridPanel.getGraphics());
 
             Object nextCell = currentCell.checkNeighbors(this);
             if (nextCell instanceof Cell){ // the function did not return false which means we have a random neighbor
