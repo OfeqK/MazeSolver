@@ -4,9 +4,9 @@ import javax.swing.*;
 import java.util.Arrays;
 
 public class MazeGUI {
-    static int rows = 5;
-    static int cols = 5;
-    static int tile = 50; // each pixel is 20px
+    static int rows = 20;
+    static int cols = 20;
+    static int tile = 40; // each pixel is 20px
     static int width = cols * tile;
     static int height = rows * tile;
 
@@ -28,7 +28,7 @@ public class MazeGUI {
 
         // Start maze generation in a separate thread, so we can view it on the screen - i hope
         Thread mazeGenerationThread = new Thread(() -> { // lambda function - i didn't know that was even possible. Cool!
-            grid.generateMaze(gridPanel);
+            grid.generateMaze(gridPanel, tile);
         });
 
         mazeGenerationThread.start();

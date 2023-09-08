@@ -52,12 +52,13 @@ public class Grid {
         }
     }
 
-    public void generateMaze(GridPanel gridPanel){
+    public void generateMaze(GridPanel gridPanel, int delayInMillis){
         Stack<Cell> stack = new Stack<>();
         boolean generatingMaze = true;
         Cell current_cell = this.getCell(0, 0); // the top left cell
 
         while (generatingMaze){
+            gridPanel.repaint();  // repaint / update the screen according to the change in the grid
 
             current_cell.visited = true;
             current_cell.drawCurrent(gridPanel.getGraphics());
@@ -74,11 +75,9 @@ public class Grid {
                 generatingMaze = false;
             }
 
-            gridPanel.repaint();  // repaint / update the screen according to the change in the grid
-
             // Sleep or add a delay if you want to control the pace of visualization
             try {
-                Thread.sleep(100);
+                Thread.sleep(delayInMillis);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

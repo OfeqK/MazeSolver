@@ -42,7 +42,7 @@ public class Cell {
     public void drawCurrent(Graphics g){
         int wn_x = x * tile;
         int wn_y = y * tile;
-        g.setColor(turquoise);
+        g.setColor(black);
         g.fillRect(wn_x + 1, wn_y + 1, tile - 1, tile - 1); // draw the square but make it fill only the white area and not the borders
     }
 
@@ -83,7 +83,6 @@ public class Cell {
         if (top instanceof Cell){ // the function returned a valid cell that has not been visited
             if (!((Cell) top).visited){
                 neighbors.push(((Cell) top));
-                System.out.println("Pushed successfully");
             }
         }
 
@@ -91,7 +90,6 @@ public class Cell {
         if (right instanceof Cell){ // the function returned a valid cell that has not been visited
             if (!((Cell) right).visited){
                 neighbors.push(((Cell) right));
-                System.out.println("Pushed successfully");
             }
         }
 
@@ -99,7 +97,6 @@ public class Cell {
         if (bottom instanceof Cell){ // the function returned a valid cell that has not been visited
             if (!((Cell) bottom).visited){
                 neighbors.push(((Cell) bottom));
-                System.out.println("Pushed successfully");
             }
         }
 
@@ -107,7 +104,6 @@ public class Cell {
         if (left instanceof Cell){ // the function returned a valid cell that has not been visited
             if (!((Cell) left).visited){
                 neighbors.push(((Cell) left));
-                System.out.println("Pushed successfully");
             }
         }
 
