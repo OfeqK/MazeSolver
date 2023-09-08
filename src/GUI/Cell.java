@@ -81,29 +81,33 @@ public class Cell {
         LinkedList<Cell> neighbors = new LinkedList<>();
         Object top = this.checkCell(grid, x, y - 1);
         if (top instanceof Cell){ // the function returned a valid cell that has not been visited
-            if (((Cell) top).visited){
+            if (!((Cell) top).visited){
                 neighbors.push(((Cell) top));
+                System.out.println("Pushed successfully");
             }
         }
 
         Object right = this.checkCell(grid, x + 1, y );
         if (right instanceof Cell){ // the function returned a valid cell that has not been visited
-            if (((Cell) right).visited){
+            if (!((Cell) right).visited){
                 neighbors.push(((Cell) right));
+                System.out.println("Pushed successfully");
             }
         }
 
         Object bottom = this.checkCell(grid, x, y + 1);
         if (bottom instanceof Cell){ // the function returned a valid cell that has not been visited
-            if (((Cell) bottom).visited){
+            if (!((Cell) bottom).visited){
                 neighbors.push(((Cell) bottom));
+                System.out.println("Pushed successfully");
             }
         }
 
         Object left = this.checkCell(grid, x - 1, y);
         if (left instanceof Cell){ // the function returned a valid cell that has not been visited
-            if (((Cell) left).visited){
+            if (!((Cell) left).visited){
                 neighbors.push(((Cell) left));
+                System.out.println("Pushed successfully");
             }
         }
 

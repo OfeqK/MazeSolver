@@ -35,20 +35,20 @@ public class Grid {
         int dx = curCell.x - nextCell.x;
         if (dx == 1){ // the current cell is to the right of the next cell
             curCell.setWall("left", false);
-            curCell.setWall("right", false);
+            nextCell.setWall("right", false);
         } if (dx == -1) {   // the current cell is to the left of the next cell
             curCell.setWall("right", false);
-            curCell.setWall("left", false);
+            nextCell.setWall("left", false);
         }
 
 
         int dy = curCell.y - nextCell.y;
         if (dy == 1){ // the current cell is below the next cell
             curCell.setWall("top", false);
-            curCell.setWall("bottom", false);
+            nextCell.setWall("bottom", false);
         } if (dy == -1) {   // the current cell is above the next cell
             curCell.setWall("bottom", false);
-            curCell.setWall("top", false);
+            nextCell.setWall("top", false);
         }
     }
 
@@ -75,6 +75,13 @@ public class Grid {
             }
 
             gridPanel.repaint();  // repaint / update the screen according to the change in the grid
+
+            // Sleep or add a delay if you want to control the pace of visualization
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
