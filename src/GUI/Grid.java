@@ -1,5 +1,8 @@
 package GUI;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.LinkedList;
 import java.util.Stack;
 
 public class Grid {
@@ -56,6 +59,7 @@ public class Grid {
         Stack<Cell> stack = new Stack<>();
         boolean generatingMaze = true;
         currentCell = this.getCell(0, 0); // the top left cell
+        System.out.println("Generating...");
 
         while (generatingMaze){
             gridPanel.repaint();  // repaint / update the screen according to the change in the grid
@@ -81,5 +85,90 @@ public class Grid {
                 e.printStackTrace();
             }
         }
+        System.out.println("Finished generating!\n");
+        int tile = currentCell.tile;
+        solveMaze(gridPanel, delayInMillis, tile);
+    }
+
+    public void solveMaze(GridPanel gridPanel, int delayInMillis, int tile){
+        int[][] startEndPos = getStartEndPos(gridPanel, tile);
+        int[] startPos = startEndPos[0]; // x , y = col, row
+        int[] endPos = startEndPos[1]; // x, y = col, row
+        currentCell = this.getCell(startPos[1] / tile, startPos[0] / tile);
+        Stack<Cell> stack = new Stack<>(); // [cell]
+        stack.push(currentCell);
+        boolean solvingMaze = true;
+
+        while(stack.size() != 0 && solvingMaze){
+            gridPanel.repaint();  // repaint / update the screen according to the change in the grid
+
+            currentCell = stack.pop();
+            currentCell.visited = false; // reverting what the maze generation had done
+
+            if (currentCell.x == endPos[0] / tile && currentCell.y == endPos[1] / tile) {
+                solvingMaze = false;
+            }
+
+            LinkedList<Cell> neighbors = currentCell.chooseNeighbors(this); // returns a list of valid neighbors or False if there are none
+            if (neighbors.size() == 0) // no neighbors found - base case
+                continue;
+            else{
+                for (Cell neighbor : neighbors) {
+                    stack.push(neighbor);
+                }
+            }
+
+            // Sleep or add a delay if you want to control the pace of visualization
+            try {
+                Thread.sleep(delayInMillis);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println("Finished solving!");
+    }
+
+    public int[][] getStartEndPos(GridPanel gridPanel, int tile){
+        // getting the mouse position twice for the start and the end only if we have finished generating:
+        final boolean[] foundStart = {false}; // has to be this way for it to be accessed by the inner
+        final boolean[] foundEnd = {false};
+        int[] startPos = new int[2]; // x , y - remember to divide it by the tile when using it
+        int[] endPos = new int[2];
+
+        System.out.println("Click on the screen twice");
+        System.out.println("The first time on the starting cell");
+        System.out.println("The second time on the ending cell");
+        // thank you stack overflow for this
+        gridPanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (!foundStart[0]) {
+                    System.out.printf("Start Cell: (%d, %d)\n", e.getX() / tile, e.getY() / tile);
+                    startPos[0] = e.getX();
+                    startPos[1] = e.getY();
+                    foundStart[0] = true;
+                } else if (!foundEnd[0]) {
+                    System.out.printf("End Cell: (%d, %d)\n", e.getX() / tile, e.getY() / tile);
+                    endPos[0] = e.getX();
+                    endPos[1] = e.getY();
+                    foundEnd[0] = true;
+                }
+
+                if (foundStart[0] && foundEnd[0]) {
+                    gridPanel.removeMouseListener(this); // remove the listener after both clicks
+                }
+            }
+        });
+
+        // waiting for the user to click twice
+        while (!(foundStart[0] && foundEnd[0])) {
+            try {
+                Thread.sleep(100); // sleep for a short time to avoid busy-waiting
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return new int[][]{startPos, endPos};
     }
 }

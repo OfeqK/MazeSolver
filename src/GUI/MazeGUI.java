@@ -1,7 +1,6 @@
 package GUI;
 
 import javax.swing.*;
-import java.awt.event.*;
 
 public class MazeGUI {
     static int rows = 5;
@@ -33,29 +32,6 @@ public class MazeGUI {
 
         mazeGenerationThread.start();
 
-        // getting the mouse position twice for the start and the end only if we have finished generating:
-        boolean foundStart = false;
-        boolean foundEnd = false;
-        int[] startPos = new int[2]; // x , y - remember to divide it by the tile when using it
-        int[] endPos = new int[2]; // x , y
-        System.out.println("Click on the screen twice once the maze generation has been finished");
-        System.out.println("The first time on the starting cell");
-        System.out.println("The second one on the ending cell");
-        gridPanel.addMouseListener(new MouseAdapter() {// provides empty implementation of all
-            // MouseListener`s methods, allowing us to
-            // override only those which interests us
-            @Override //I override only one method for presentation
-            public void mousePressed(MouseEvent e) {
-                if (!foundStart) {
-                    System.out.printf("Start Cell: (%d, %d)\n", e.getX() / tile, e.getY() / tile);
-                    startPos[0] = e.getX();
-                    startPos[1] = e.getY();
-                } else if (!foundEnd){
-                    System.out.printf("End Cell: (%d, %d)\n", e.getX() / tile, e.getY() / tile);
-                    endPos[0] = e.getX();
-                    endPos[1] = e.getY();
-                }
-            }
-        });
+
     }
 }

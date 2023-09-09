@@ -31,7 +31,7 @@ public class Cell {
         walls.put("right", true);
     }
 
-    public boolean hasWall(String direction) { // hasWall and setWall functions for easier access to the hashmap. It makes the code more clear imo.
+    public boolean hasWall(String direction) { // hasWall and setWall functions for easier access to the hashmap. It makes the code more readable imo.
         return walls.get(direction);
     }
 
@@ -81,7 +81,7 @@ public class Cell {
         return grid.getCell(cur_y, cur_x);
     }
 
-    public Object checkNeighbors(Grid grid){
+    public Object checkNeighbors(Grid grid){ // used for getting a single neighbor for the generating part
         LinkedList<Cell> neighbors = new LinkedList<>();
         Object top = this.checkCell(grid, x, y - 1);
         if (top instanceof Cell){ // the function returned a valid cell that has not been visited
@@ -115,6 +115,43 @@ public class Cell {
             return neighbors.get(new Random().nextInt(neighbors.size())); // returns a random neighbor
         } else {
             return false;
+        }
+    }
+
+    public LinkedList<Cell> chooseNeighbors(Grid grid){ // used for getting all possible neighbors for the solving part
+        LinkedList<Cell> neighbors = new LinkedList<>();
+        Object top = this.checkCell(grid, x, y - 1);
+        if (top instanceof Cell){ // the function returned a valid cell that has been visited - while generating it has been visited.
+            if (((Cell) top).visited && !this.hasWall("top") && !((Cell) top).hasWall("bottom")){ // and there are no walls between them
+                neighbors.push(((Cell) top));
+            }
+        }
+
+        Object right = this.checkCell(grid, x + 1, y );
+        if (right instanceof Cell){ // the function returned a valid cell that has been visited
+            if (((Cell) right).visited && !this.hasWall("right") && !((Cell) right).hasWall("left")){ // and there are no walls between them
+                neighbors.push(((Cell) right));
+            }
+        }
+
+        Object bottom = this.checkCell(grid, x, y + 1);
+        if (bottom instanceof Cell){ // the function returned a valid cell that has been visited
+            if (((Cell) bottom).visited && !this.hasWall("bottom") && !((Cell) bottom).hasWall("top")){ // and there are no walls between them
+                neighbors.push(((Cell) bottom));
+            }
+        }
+
+        Object left = this.checkCell(grid, x - 1, y);
+        if (left instanceof Cell){ // the function returned a valid cell that has been visited
+            if (((Cell) left).visited && !this.hasWall("left") && !((Cell) left).hasWall("right")){ // and there are no walls between them
+                neighbors.push(((Cell) left));
+            }
+        }
+
+        if (neighbors.size() > 0){
+            return neighbors; // returns all valid neighbors with no walls between them and that have been visited - by the generating part
+        } else {
+            return new LinkedList<>();
         }
     }
 }
