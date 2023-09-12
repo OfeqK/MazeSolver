@@ -3,11 +3,12 @@ package GUI;
 import javax.swing.*;
 
 public class MazeGUI {
-    static int rows = 5;
-    static int cols = 5;
-    static int tile = 40; // each pixel is represented as 40px
+    static int rows = 100;
+    static int cols = 100;
+    static int tile = 8; // each pixel is represented as 40px
     static int width = cols * tile;
     static int height = rows * tile;
+    static int delay = 1; // the delay that will be applied to the maze. Decrease it as the maze size increases
 
     // very helpful video: https://www.youtube.com/watch?v=MTe9lehPPbI. VERY, VERY HELPFUL VIDEO
     public static void main(String[] args) {
@@ -27,7 +28,7 @@ public class MazeGUI {
 
         // Start maze generation in a separate thread, so we can view it on the screen - I hope
         Thread mazeGenerationThread = new Thread(() -> { // lambda function - I didn't know that was even possible. Cool!
-            grid.generateMaze(gridPanel, tile);
+            grid.generateMaze(gridPanel, delay);
         });
 
         mazeGenerationThread.start();

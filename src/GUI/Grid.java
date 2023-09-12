@@ -8,6 +8,7 @@ import java.util.Stack;
 public class Grid {
     public Cell[][] cells;
     public Cell currentCell; // making it accessible to other classes
+    public LinkedList<Cell> finalPath;
 
     public Grid(int tile, int rows, int cols){
         cells = new Cell[rows][cols]; // cells[y][x] == cells[row][col]
@@ -95,6 +96,7 @@ public class Grid {
         int[] startPos = startEndPos[0]; // x , y = col, row
         int[] endPos = startEndPos[1]; // x, y = col, row
         currentCell = this.getCell(startPos[1] / tile, startPos[0] / tile);
+        currentCell.pathToStart.offer(currentCell); // adding the starting cell to the currentCell path
         Stack<Cell> stack = new Stack<>(); // [cell]
         stack.push(currentCell);
         boolean solvingMaze = true;
@@ -107,6 +109,13 @@ public class Grid {
 
             if (currentCell.x == endPos[0] / tile && currentCell.y == endPos[1] / tile) {
                 solvingMaze = false;
+                System.out.print("Final path: ");
+                for (Cell cell: currentCell.pathToStart){
+                    System.out.printf("[%d, %d], ", cell.x, cell.y);
+                }
+                System.out.println();
+                finalPath = currentCell.pathToStart;
+                gridPanel.repaint();  // repaint / update the screen according to the change in the grid
             }
 
             LinkedList<Cell> neighbors = currentCell.chooseNeighbors(this); // returns a list of valid neighbors or False if there are none
@@ -115,6 +124,10 @@ public class Grid {
             else{
                 for (Cell neighbor : neighbors) {
                     stack.push(neighbor);
+
+                    LinkedList<Cell> newPath = new LinkedList<>(currentCell.pathToStart); // Create a copy of the current path
+                    newPath.offer(neighbor); // Add the neighbor to the new path
+                    neighbor.pathToStart = newPath;
                 }
             }
 

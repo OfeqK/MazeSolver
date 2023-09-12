@@ -20,11 +20,21 @@ public class GridPanel extends JPanel{
         for (int row = 0; row < rows; row++){ // drawing all the cells to the screen
             for (int col = 0; col < cols; col++){
                 Cell cell = grid.getCell(row, col);
+
+                // check if the cell is in the final path:
+                if (grid.finalPath != null) {
+                    if (grid.finalPath.contains(cell)) {
+                        cell.isFinal = true;
+                    }
+                }
+
                 if (cell == grid.currentCell) { // drawing the current cell with a different color
                     cell.drawCurrent(g);
                 } else {
                     cell.draw(g);
                 }
+
+
             }
         }
 

@@ -7,12 +7,14 @@ import java.util.Random;
 public class Cell {
     int x, y, tile, cols, rows;
     int[] res;
-    boolean visited = false;
+    boolean visited = false, isFinal = false;
+    LinkedList<Cell> pathToStart = new LinkedList<>();
 
     Color black = new Color(0, 0, 0);
     Color white = new Color(255, 255, 255);
     Color light_blue = new Color(0, 255, 255);
     Color turquoise = new Color(0, 82, 84);
+    Color red = new Color(255, 0, 0);
 
     HashMap<String, Boolean> walls;
 
@@ -43,7 +45,7 @@ public class Cell {
         int wn_x = x * tile;
         int wn_y = y * tile;
         g.setColor(turquoise);
-        g.fillRect(wn_x + 1, wn_y + 1, tile - 1, tile - 1); // draw the square but make it fill only the white area and not the borders
+        g.fillRect(wn_x, wn_y, tile, tile); // draw the square but make it fill only the white area and not the borders
     }
 
     public void draw(Graphics g){
@@ -55,6 +57,11 @@ public class Cell {
             g.fillRect(wn_x, wn_y , tile, tile); // draw the square but make it fill only the white area and not the borders
         } else {
             g.setColor(white);
+            g.fillRect(wn_x, wn_y , tile, tile); // draw the square but make it fill only the white area and not the borders
+        }
+
+        if (this.isFinal){
+            g.setColor(red);
             g.fillRect(wn_x, wn_y , tile, tile); // draw the square but make it fill only the white area and not the borders
         }
 
